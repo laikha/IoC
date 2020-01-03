@@ -1,0 +1,37 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29411.108
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IoC", "IoC\IoC.csproj", "{A12FAD8D-7687-45AF-9E4E-A158712E6EB3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "School", "School\School.csproj", "{C21694FB-8D68-4118-9168-C302B5CC160B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NUnitTestSchool", "NUnitTestSchool\NUnitTestSchool.csproj", "{9D911686-6A20-4F93-9683-F1AD128B308D}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{A12FAD8D-7687-45AF-9E4E-A158712E6EB3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A12FAD8D-7687-45AF-9E4E-A158712E6EB3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A12FAD8D-7687-45AF-9E4E-A158712E6EB3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A12FAD8D-7687-45AF-9E4E-A158712E6EB3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C21694FB-8D68-4118-9168-C302B5CC160B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C21694FB-8D68-4118-9168-C302B5CC160B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C21694FB-8D68-4118-9168-C302B5CC160B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C21694FB-8D68-4118-9168-C302B5CC160B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9D911686-6A20-4F93-9683-F1AD128B308D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9D911686-6A20-4F93-9683-F1AD128B308D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9D911686-6A20-4F93-9683-F1AD128B308D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9D911686-6A20-4F93-9683-F1AD128B308D}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {E2249215-BD41-4FEF-85C6-560904F7EAB2}
+	EndGlobalSection
+EndGlobal
