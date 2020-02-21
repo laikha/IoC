@@ -16,8 +16,6 @@ variables:
 
 steps:
 
-
-
 - task: SonarCloudPrepare@1
   inputs:
     SonarCloud: 'SonarCloud'
@@ -49,3 +47,4 @@ steps:
     pollingTimeoutSec: '300'
 
 - task: SonarCloudAnalyze@1
+  displayName: 'Run Code Analysis'
