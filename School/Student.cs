@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Collections.Generic;
 using System.Linq;
 
 namespace School
@@ -12,7 +10,7 @@ namespace School
     public class Student : Person
     {
         //His classes
-        public List<Student_Class> Classes { get; set; }
+        public List<StudentClass> Classes { get; set; }
 
         public bool IsAprooved()
         {
@@ -21,8 +19,8 @@ namespace School
                     where c.Grade < c.Class.MinGradeForPass
                     select c;
 
-            //if it has one so fail
-            return x.Count() == 0;
+            //if it has none is fail
+            return !x.Any();
         }
     }
 }

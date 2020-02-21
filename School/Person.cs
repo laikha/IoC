@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace School
+﻿namespace School
 {
     /// <summary>
     /// This class is just for show how it works.
@@ -11,8 +7,8 @@ namespace School
     /// @author Ricardo Silva
     public class Person
     {
-
         public int? Id { get; set; }
+        #nullable enable
         public string? Name { get; set; }
         public int? Age { get; set; }
         public new virtual string ToString()

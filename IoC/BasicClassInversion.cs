@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace IoC
 {
@@ -9,21 +7,21 @@ namespace IoC
     /// </summary>
     /// <typeparam name="T">The class</typeparam>
     /// @author Ricardo Silva
-    public class BasicClassInjection<T>: I4IoC<T>
+    public class BasicClassInversion<T>: I4IoC<T>
     {
         //use this to get the class that you are working with
-        private T _t;
+        private readonly T _t;
 
         /// <summary>
         /// A constructor for this class
         /// </summary>
         /// <param name="t">Class instantiated</param>
-        public BasicClassInjection(T t)
+        public BasicClassInversion(T t)
         {
             _t = t;
         }
 
-        public BasicClassInjection()
+        public BasicClassInversion()
         {
             
         }

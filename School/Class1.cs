@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
+﻿
 namespace School
 {
     /// <summary>
@@ -11,7 +8,6 @@ namespace School
     #nullable enable
     public class Class1
     {
-        private float minGradeForPass = 7f;
         public Professor? Professor { get; set; }
 
         public int? Id { get; set; }
@@ -22,17 +18,7 @@ namespace School
 
         //Get the minimum grade for this class,
         //if it was not seted up than the value is 7f
-        public float MinGradeForPass
-        {
-            get
-            {
-                return minGradeForPass;
-            }
-            set
-            {
-                minGradeForPass = value;
-            }
-        }
+        public float MinGradeForPass { get; set; } = 7f;
 
         public override string ToString()
         {

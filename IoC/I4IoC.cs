@@ -1,14 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace IoC
+﻿namespace IoC
 {
     /// <summary>
     /// A interface to use in classes
     /// </summary>
     /// @author Ricardo Silva
-    public interface I4IoC<T>
+    public interface I4IoC<out T>
     {
         string WhoAmI();
 

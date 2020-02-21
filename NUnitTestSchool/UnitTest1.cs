@@ -8,13 +8,13 @@ namespace NUnitTestSchool
         [SetUp]
         public void Setup()
         {
-
+            // Method intentionally left empty.
         }
 
         [Test]
         public void IsPersonProfessor()
         {
-            IoC.I4IoC<School.Professor> iProfessor = new IoC.BasicClassInjection<School.Professor>();
+            IoC.I4IoC<School.Professor> iProfessor = new IoC.BasicClassInversion<School.Professor>();
 
             string expected = "Professor";
             string returned = iProfessor.WhoAmI();
@@ -25,7 +25,7 @@ namespace NUnitTestSchool
         [Test]
         public void IsPersonStudent()
         {
-            IoC.I4IoC<School.Student> iStudent = new IoC.BasicClassInjection<School.Student>();
+            IoC.I4IoC<School.Student> iStudent = new IoC.BasicClassInversion<School.Student>();
 
             string expected = "Student";
             string returned = iStudent.WhoAmI();
@@ -36,7 +36,7 @@ namespace NUnitTestSchool
         [Test]
         public void IsPerson()
         {
-            IoC.I4IoC<School.Person> iPerson = new IoC.BasicClassInjection<School.Person>();
+            IoC.I4IoC<School.Person> iPerson = new IoC.BasicClassInversion<School.Person>();
 
             string expected = "Person";
             string returned = iPerson.WhoAmI();
@@ -47,7 +47,7 @@ namespace NUnitTestSchool
         [Test]
         public void IsClass()
         {
-            IoC.I4IoC<School.Class1> iClass = new IoC.BasicClassInjection<School.Class1>();
+            IoC.I4IoC<School.Class1> iClass = new IoC.BasicClassInversion<School.Class1>();
 
             string expected = "Class1";
             string returned = iClass.WhoAmI();
@@ -73,7 +73,7 @@ namespace NUnitTestSchool
                 Professor = professor
             };
 
-            IoC.I4IoC<School.Class1> iClass = new IoC.BasicClassInjection<School.Class1>(@class);
+            IoC.I4IoC<School.Class1> iClass = new IoC.BasicClassInversion<School.Class1>(@class);
 
             string expected = "50 - GD5 (6 - Will) - Game Developer";
             string returned = iClass.GetInstantiatedClass().ToString();
@@ -90,7 +90,7 @@ namespace NUnitTestSchool
                 Age = 43
             };
 
-            IoC.I4IoC<School.Professor> iProfessor = new IoC.BasicClassInjection<School.Professor>(professor);
+            IoC.I4IoC<School.Professor> iProfessor = new IoC.BasicClassInversion<School.Professor>(professor);
 
 
             string expected = "10 - Rick";
@@ -110,7 +110,7 @@ namespace NUnitTestSchool
                 Age = 60
             };
 
-            IoC.I4IoC<School.Student> iStudent = new IoC.BasicClassInjection<School.Student>(student);
+            IoC.I4IoC<School.Student> iStudent = new IoC.BasicClassInversion<School.Student>(student);
 
 
             string expected = "11 - Jack";
@@ -147,14 +147,14 @@ namespace NUnitTestSchool
                 Name = "Rick"
             };
 
-            List<School.Student_Class> student_Classes = new List<School.Student_Class>
+            List<School.StudentClass> student_Classes = new List<School.StudentClass>
             {
-               new  School.Student_Class(student, classes[0])
+               new  School.StudentClass(student, classes[0])
                 {
                     Grade = 8.5f
                 },
 
-                new School.Student_Class(student, classes[1])
+                new School.StudentClass(student, classes[1])
                 {
                     Grade = 6.5f
                 }
@@ -162,7 +162,7 @@ namespace NUnitTestSchool
 
             student.Classes = student_Classes;
 
-            IoC.I4IoC<School.Student> iStudent = new IoC.BasicClassInjection<School.Student>(student);
+            IoC.I4IoC<School.Student> iStudent = new IoC.BasicClassInversion<School.Student>(student);
 
 
             bool returned = iStudent.GetInstantiatedClass().IsAprooved();
