@@ -6,7 +6,7 @@
     /// @author Ricardo Silva
     public class StudentClass
     {
-        public StudentClass(Student s, Class1 c)
+        public StudentClass(Student s, ClassRoom c)
         {
             Student = s;
             Class = c;
@@ -14,7 +14,7 @@
 
         public Student Student { get; set; }
 
-        public Class1 Class { get; set; }
+        public ClassRoom Class { get; set; }
 
         public float Grade { get;set; }
     }

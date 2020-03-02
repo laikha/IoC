@@ -47,9 +47,9 @@ namespace NUnitTestSchool
         [Test]
         public void IsClass()
         {
-            IoC.I4IoC<School.Class1> iClass = new IoC.BasicClassInversion<School.Class1>();
+            IoC.I4IoC<School.ClassRoom> iClass = new IoC.BasicClassInversion<School.ClassRoom>();
 
-            string expected = "Class1";
+            string expected = "ClassRoom";
             string returned = iClass.WhoAmI();
 
             Assert.IsTrue(expected == returned, "Expected: {0} Returned: {1}", expected, returned);
@@ -64,7 +64,7 @@ namespace NUnitTestSchool
                 Name = "Will"
             };
 
-            School.Class1 @class = new School.Class1
+            School.ClassRoom @class = new School.ClassRoom
             {
                 Description = "Game Developer",
                 Id = 50,
@@ -73,7 +73,7 @@ namespace NUnitTestSchool
                 Professor = professor
             };
 
-            IoC.I4IoC<School.Class1> iClass = new IoC.BasicClassInversion<School.Class1>(@class);
+            IoC.I4IoC<School.ClassRoom> iClass = new IoC.BasicClassInversion<School.ClassRoom>(@class);
 
             string expected = "50 - GD5 (6 - Will) - Game Developer";
             string returned = iClass.GetInstantiatedClass().ToString();
@@ -122,16 +122,16 @@ namespace NUnitTestSchool
         [Test]
         public void VerifyGradeStudent()
         {
-            List<School.Class1> classes = new List<School.Class1>
+            List<School.ClassRoom> classes = new List<School.ClassRoom>
             {
-                new School.Class1
+                new School.ClassRoom
                 {
                     Id = 1,
                     Description = "Class of History",
                     Name = "Hist1",
                     MinGradeForPass = 7f
                 },
-                new School.Class1
+                new School.ClassRoom
                 {
                     Id = 2,
                     Description = "Class of Biology",

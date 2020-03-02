@@ -6,7 +6,7 @@ namespace School
     /// </summary>
     /// @author Ricardo Silva
     #nullable enable
-    public class Class1
+    public class ClassRoom
     {
         public Professor? Professor { get; set; }
 
