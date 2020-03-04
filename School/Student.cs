@@ -16,7 +16,7 @@ namespace School
         {
             //Count grades that not pass
             var x = from c in Classes
-                    where c.Grade < c.Class.MinGradeForPass
+                    where c.Grade < c.ClassRoomProp.MinGradeForPass
                     select c;
 
             //if it has none is fail

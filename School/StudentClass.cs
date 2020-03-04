@@ -8,13 +8,13 @@
     {
         public StudentClass(Student s, ClassRoom c)
         {
-            Student = s;
-            Class = c;
+            StudentProp = s ?? throw new System.ArgumentNullException(nameof(s), "Student is required");
+            ClassRoomProp = c ?? throw new System.ArgumentNullException(nameof(c), "ClassRoom is required");
         }
 
-        public Student Student { get; set; }
+        public Student StudentProp { get; set; }
 
-        public ClassRoom Class { get; set; }
+        public ClassRoom ClassRoomProp { get; set; }
 
         public float Grade { get;set; }
     }

@@ -43,7 +43,7 @@ namespace IoC
         {
             //If the class to inject was not initialized, then raise an exception
             if(_t == null){
-                throw new NotImplementedException($"You need instantiate a new class of {WhoAmI()} using BasicClassInjection(T t) constructor");
+                throw new NotImplementedException($"You need instantiate a new class of {WhoAmI()} using BasicClassInversion(T t) constructor");
             }
             return _t;
         }
