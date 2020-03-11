@@ -1,4 +1,6 @@
-﻿namespace IoC
+﻿using System;
+
+namespace IoC
 {
     /// <summary>
     /// A interface to use in classes
@@ -9,8 +11,6 @@
         string WhoAmI();
 
         T GetInstantiatedClass();
-
-        int Total();
 
     }
 }

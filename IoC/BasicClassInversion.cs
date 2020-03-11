@@ -15,7 +15,7 @@ namespace IoC
         /// <summary>
         /// A constructor for this class
         /// </summary>
-        /// <param name="t">Class instantiated</param>
+        /// <param name="t">Class to be inicialized</param>
         public BasicClassInversion(T t)
         {
             _t = t;
@@ -38,23 +38,20 @@ namespace IoC
         /// <summary>
         /// Method to return the instantianted class
         /// </summary>
-        /// <returns>Class instantiated in T</returns>
+        /// <returns>Class instantiated in BasicClassInversion</returns>
         public virtual T GetInstantiatedClass()
         {
             //If the class to inject was not initialized, then raise an exception
             if(_t == null){
-                throw new NotImplementedException($"You need instantiate a new class of {WhoAmI()} using BasicClassInversion(T t) constructor");
+                throw new NullReferenceException($"You need instantiate a new class of {WhoAmI()} using BasicClassInversion({WhoAmI()} t) constructor");
             }
             return _t;
         }
 
-        /// <summary>
-        /// Just a method
-        /// </summary>
-        /// <returns>integer</returns>
-        public virtual int Total()
+
+        public override string ToString()
         {
-            throw new NotImplementedException();
+            return _t.ToString();
         }
     }
 }

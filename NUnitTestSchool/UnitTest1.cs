@@ -102,7 +102,6 @@ namespace NUnitTestSchool
         [Test]
         public void VerifyStudent()
         {
-
             School.Student student = new School.Student
             {
                 Id = 11,
@@ -112,6 +111,23 @@ namespace NUnitTestSchool
 
             IoC.I4IoC<School.Student> iStudent = new IoC.BasicClassInversion<School.Student>(student);
 
+            string expected = "11 - Jack - 60";
+            string returned = iStudent.GetInstantiatedClass().ToString();
+
+            Assert.IsTrue(expected == returned, "Expected: {0} Returned: {1}", expected, returned);
+        }
+
+        [Test]
+        public void VerifyPerson()
+        {
+            School.Person person = new School.Person
+            {
+                Id = 11,
+                Name = "Jack",
+                Age = 60
+            };
+
+            IoC.I4IoC<School.Person> iStudent = new IoC.BasicClassInversion<School.Person>(person) ;
 
             string expected = "11 - Jack";
             string returned = iStudent.GetInstantiatedClass().ToString();
@@ -137,6 +153,13 @@ namespace NUnitTestSchool
                     Description = "Class of Biology",
                     Name = "Bio1",
                     MinGradeForPass = 6f
+                },
+                new School.ClassRoom
+                {
+                    Id = 3,
+                    Description = "Class of Math",
+                    Name = "Mth1",
+                    MinGradeForPass = 8f
                 }
             };
             
@@ -158,14 +181,18 @@ namespace NUnitTestSchool
                 {
                     Grade = 6.5f
                 }
+                ,
+                new School.StudentClass(student, classes[2])
+                {
+                    Grade = 10f
+                }
             };
 
             student.Classes = student_Classes;
 
-            IoC.I4IoC<School.Student> iStudent = new IoC.BasicClassInversion<School.Student>(student);
+            //IoC.I4IoC<School.Student> iStudent = new IoC.BasicClassInversion<School.Student>(student);
 
-
-            bool returned = iStudent.GetInstantiatedClass().IsAprooved();
+            bool returned = student.IsAprooved();  //iStudent.GetInstantiatedClass().IsAprooved();
 
             Assert.IsTrue(returned);
         }

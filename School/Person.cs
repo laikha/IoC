@@ -8,10 +8,10 @@
     public class Person
     {
         public int? Id { get; set; }
-        #nullable enable
+#nullable enable
         public string? Name { get; set; }
         public int? Age { get; set; }
-        public new virtual string ToString()
+        public override string ToString()
         {
             return $"{Id} - {Name}";
         }

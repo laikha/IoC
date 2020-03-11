@@ -22,5 +22,10 @@ namespace School
             //if it has none is fail
             return !x.Any();
         }
+
+        public override string ToString()
+        {
+            return $"{Id} - {Name} - {Age}";
+        }
     }
 }
