@@ -5,7 +5,7 @@
     /// It is a person to use in people
     /// </summary>
     /// @author Ricardo Silva
-    public class Person
+    public class Person : IoC.BasicClassInversion<Person>
     {
         public int? Id { get; set; }
 #nullable enable

@@ -6,7 +6,7 @@ namespace School
     /// </summary>
     /// @author Ricardo Silva
     #nullable enable
-    public class ClassRoom
+    public class ClassRoom : IoC.BasicClassInversion<ClassRoom>
     {
         public Professor? Professor { get; set; }
 

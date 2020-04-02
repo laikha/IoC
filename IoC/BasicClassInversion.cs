@@ -10,7 +10,7 @@ namespace IoC
     public class BasicClassInversion<T>: I4IoC<T>
     {
         //use this to get the class that you are working with
-        private readonly T _t;
+        private T _t;
 
         /// <summary>
         /// A constructor for this class
@@ -39,7 +39,7 @@ namespace IoC
         /// Method to return the instantianted class
         /// </summary>
         /// <returns>Class instantiated in BasicClassInversion</returns>
-        public virtual T GetInstantiatedClass()
+        public virtual T IoCClass()
         {
             //If the class to inject was not initialized, then raise an exception
             if(_t == null){
