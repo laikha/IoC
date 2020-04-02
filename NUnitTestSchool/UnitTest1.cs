@@ -75,8 +75,9 @@ namespace NUnitTestSchool
 
             IoC.I4IoC<School.ClassRoom> iClass = new IoC.BasicClassInversion<School.ClassRoom>(@class);
 
+
             string expected = "50 - GD5 (6 - Will) - Game Developer";
-            string returned = iClass.GetInstantiatedClass().ToString();
+            string returned = iClass.ToString();
 
             Assert.IsTrue(expected == returned, "Expected: {0} Returned: {1}", expected, returned);
         }
@@ -90,11 +91,11 @@ namespace NUnitTestSchool
                 Age = 43
             };
 
-            IoC.I4IoC<School.Professor> iProfessor = new IoC.BasicClassInversion<School.Professor>(professor);
+            IoC.I4IoC<School.Person> iProfessor = new IoC.BasicClassInversion<School.Professor>(professor);
 
 
             string expected = "10 - Rick";
-            string returned = iProfessor.GetInstantiatedClass().ToString();
+            string returned = iProfessor.IoCClass().ToString();
 
             Assert.IsTrue(expected == returned, "Expected: {0} Returned: {1}", expected, returned);
         }
@@ -112,7 +113,7 @@ namespace NUnitTestSchool
             IoC.I4IoC<School.Student> iStudent = new IoC.BasicClassInversion<School.Student>(student);
 
             string expected = "11 - Jack - 60";
-            string returned = iStudent.GetInstantiatedClass().ToString();
+            string returned = iStudent.ToString();
 
             Assert.IsTrue(expected == returned, "Expected: {0} Returned: {1}", expected, returned);
         }
@@ -130,7 +131,7 @@ namespace NUnitTestSchool
             IoC.I4IoC<School.Person> iStudent = new IoC.BasicClassInversion<School.Person>(person) ;
 
             string expected = "11 - Jack";
-            string returned = iStudent.GetInstantiatedClass().ToString();
+            string returned = iStudent.IoCClass().ToString();
 
             Assert.IsTrue(expected == returned, "Expected: {0} Returned: {1}", expected, returned);
         }
@@ -172,18 +173,24 @@ namespace NUnitTestSchool
 
             List<School.StudentClass> student_Classes = new List<School.StudentClass>
             {
-               new  School.StudentClass(student, classes[0])
+               new  School.StudentClass()
                 {
+                    StudentProp = student, 
+                    ClassRoomProp = classes[0],
                     Grade = 8.5f
                 },
 
-                new School.StudentClass(student, classes[1])
+                new School.StudentClass()
                 {
+                    StudentProp = student,
+                    ClassRoomProp = classes[1],
                     Grade = 6.5f
                 }
                 ,
-                new School.StudentClass(student, classes[2])
+                new School.StudentClass()
                 {
+                    StudentProp = student,
+                    ClassRoomProp = classes[2],
                     Grade = 10f
                 }
             };

@@ -10,7 +10,6 @@ namespace IoC
     {
         string WhoAmI();
 
-        T GetInstantiatedClass();
-
+        T IoCClass();
     }
 }
