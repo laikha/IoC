@@ -1,4 +1,5 @@
 using NUnit.Framework;
+using School;
 using System.Collections.Generic;
 
 namespace NUnitTestSchool
@@ -73,11 +74,11 @@ namespace NUnitTestSchool
                 Professor = professor
             };
 
-            IoC.I4IoC<School.ClassRoom> iClass = new IoC.BasicClassInversion<School.ClassRoom>(classRoom);
+            IoC.I4IoC<School.ClassRoom> iClassRoom = classRoom;
 
 
             string expected = "50 - GD5 (6 - Will) - Game Developer";
-            string returned = iClass.ToString();
+            string returned = iClassRoom.ToString();
 
             Assert.IsTrue(expected == returned, "Expected: {0} Returned: {1}", expected, returned);
         }
@@ -91,11 +92,11 @@ namespace NUnitTestSchool
                 Age = 43
             };
 
-            IoC.I4IoC<School.Person> iProfessor = new IoC.BasicClassInversion<School.Professor>(professor);
+            IoC.I4IoC<School.Person> iProfessor = professor;
 
 
             string expected = "10 - Rick";
-            string returned = iProfessor.IoCClass().ToString();
+            string returned = iProfessor.ToString();
 
             Assert.IsTrue(expected == returned, "Expected: {0} Returned: {1}", expected, returned);
         }
@@ -110,7 +111,7 @@ namespace NUnitTestSchool
                 Age = 60
             };
 
-            IoC.I4IoC<School.Person> iStudent = new IoC.BasicClassInversion<School.Student>(student);
+            IoC.I4IoC<School.Person> iStudent = student;
 
             string expected = "11 - Jack - 60";
             string returned = iStudent.ToString();
@@ -128,10 +129,10 @@ namespace NUnitTestSchool
                 Age = 60
             };
 
-            IoC.I4IoC<School.Person> iStudent = new IoC.BasicClassInversion<School.Person>(person) ;
+            IoC.I4IoC<School.Person> iPerson = person;
 
             string expected = "11 - Jack";
-            string returned = iStudent.IoCClass().ToString();
+            string returned = iPerson.ToString();
 
             Assert.IsTrue(expected == returned, "Expected: {0} Returned: {1}", expected, returned);
         }
@@ -175,34 +176,32 @@ namespace NUnitTestSchool
             {
                new  School.StudentClass()
                 {
-                    StudentProp = student, 
-                    ClassRoomProp = classes[0],
+                    MyStudent = student, 
+                    MyClassRoom = classes[0],
                     Grade = 8.5f
                 },
 
                 new School.StudentClass()
                 {
-                    StudentProp = student,
-                    ClassRoomProp = classes[1],
+                    MyStudent = student,
+                    MyClassRoom = classes[1],
                     Grade = 6.5f
                 }
                 ,
                 new School.StudentClass()
                 {
-                    StudentProp = student,
-                    ClassRoomProp = classes[2],
+                    MyStudent = student,
+                    MyClassRoom = classes[2],
                     Grade = 10f
                 }
             };
 
             student.Classes = student_Classes;
 
-            //IoC.I4IoC<School.Student> iStudent = new IoC.BasicClassInversion<School.Student>(student);
+            IoC.I4IoC<School.Person> iStudent = student;
 
-            //Need a review
-
-            bool returned = student.IsAprooved();  //iStudent.GetInstantiatedClass().IsAprooved();
-
+            bool returned = ((Student)iStudent).IsAprooved();
+            
             Assert.IsTrue(returned);
         }
 

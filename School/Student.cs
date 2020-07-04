@@ -7,7 +7,7 @@ namespace School
     /// Class for student
     /// </summary>
     /// @author Ricardo Silva
-    public class Student : Person
+    public class Student : Person, IStudent
     {
         //His classes
         public List<StudentClass> Classes { get; set; }
@@ -16,7 +16,7 @@ namespace School
         {
             //Count grades that not pass
             var x = from c in Classes
-                    where c.Grade < c.ClassRoomProp.MinGradeForPass
+                    where c.Grade < c.MyClassRoom.MinGradeForPass
                     select c;
 
             //if it has none is fail

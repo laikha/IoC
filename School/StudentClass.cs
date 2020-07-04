@@ -11,40 +11,40 @@
             
         }
 
-        private Student studentProp;
-        private ClassRoom classRoomProp;
+        private Student student;
+        private ClassRoom classRoom;
 
-        public Student StudentProp
+        public Student MyStudent
         {
             get
             {
-                if (studentProp == null)
+                if (student == null)
                 {
-                    throw new System.ArgumentNullException(nameof(studentProp), "Student was not instantiated");
+                    throw new System.ArgumentNullException(nameof(student), "Student was not instantiated");
                 }
 
-                return studentProp;
+                return student;
             }
             set
             {
-                studentProp = value;
+                student = value;
             }
         }
 
-        public ClassRoom ClassRoomProp {
+        public ClassRoom MyClassRoom {
             get
             {
-                if (classRoomProp == null)
+                if (classRoom == null)
                 {
-                    throw new System.ArgumentNullException(nameof(classRoomProp), "ClassRoom was not instantiated");
-                    return classRoomProp;
+                    throw new System.ArgumentNullException(nameof(classRoom), "ClassRoom was not instantiated");
+                    return classRoom;
                 }
 
-                return classRoomProp;
+                return classRoom;
             }
             set
             {
-                classRoomProp = value;
+                classRoom = value;
             }
         }
 
