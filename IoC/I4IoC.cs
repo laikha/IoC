@@ -1,5 +1,4 @@
-﻿using System;
-
+﻿
 namespace IoC
 {
     /// <summary>
@@ -10,6 +9,5 @@ namespace IoC
     {
         string WhoAmI();
 
-        T IoCClass();
     }
 }
