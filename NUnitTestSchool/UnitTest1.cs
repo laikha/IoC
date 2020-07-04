@@ -14,7 +14,7 @@ namespace NUnitTestSchool
         [Test]
         public void IsPersonProfessor()
         {
-            IoC.I4IoC<School.Professor> iProfessor = new IoC.BasicClassInversion<School.Professor>();
+            IoC.I4IoC<School.Person> iProfessor = new IoC.BasicClassInversion<School.Professor>();
 
             string expected = "Professor";
             string returned = iProfessor.WhoAmI();
@@ -25,7 +25,7 @@ namespace NUnitTestSchool
         [Test]
         public void IsPersonStudent()
         {
-            IoC.I4IoC<School.Student> iStudent = new IoC.BasicClassInversion<School.Student>();
+            IoC.I4IoC<School.Person> iStudent = new IoC.BasicClassInversion<School.Student>();
 
             string expected = "Student";
             string returned = iStudent.WhoAmI();
@@ -64,7 +64,7 @@ namespace NUnitTestSchool
                 Name = "Will"
             };
 
-            School.ClassRoom @class = new School.ClassRoom
+            School.ClassRoom classRoom = new School.ClassRoom
             {
                 Description = "Game Developer",
                 Id = 50,
@@ -73,7 +73,7 @@ namespace NUnitTestSchool
                 Professor = professor
             };
 
-            IoC.I4IoC<School.ClassRoom> iClass = new IoC.BasicClassInversion<School.ClassRoom>(@class);
+            IoC.I4IoC<School.ClassRoom> iClass = new IoC.BasicClassInversion<School.ClassRoom>(classRoom);
 
 
             string expected = "50 - GD5 (6 - Will) - Game Developer";
@@ -110,7 +110,7 @@ namespace NUnitTestSchool
                 Age = 60
             };
 
-            IoC.I4IoC<School.Student> iStudent = new IoC.BasicClassInversion<School.Student>(student);
+            IoC.I4IoC<School.Person> iStudent = new IoC.BasicClassInversion<School.Student>(student);
 
             string expected = "11 - Jack - 60";
             string returned = iStudent.ToString();
@@ -198,6 +198,8 @@ namespace NUnitTestSchool
             student.Classes = student_Classes;
 
             //IoC.I4IoC<School.Student> iStudent = new IoC.BasicClassInversion<School.Student>(student);
+
+            //Need a review
 
             bool returned = student.IsAprooved();  //iStudent.GetInstantiatedClass().IsAprooved();
 
