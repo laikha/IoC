@@ -20,7 +20,9 @@
             {
                 if (student == null)
                 {
+
                     NotInitialized();
+
                 }
 
                 return student;
@@ -36,7 +38,9 @@
             {
                 if (classRoom == null)
                 {
+
                     NotInitialized();
+
                 }
 
                 return classRoom;
