@@ -20,7 +20,7 @@
             {
                 if (student == null)
                 {
-                    throw new System.ArgumentNullException(nameof(student), "Student was not instantiated");
+                    NotInitialized();
                 }
 
                 return student;
@@ -36,8 +36,7 @@
             {
                 if (classRoom == null)
                 {
-                    throw new System.ArgumentNullException(nameof(classRoom), "ClassRoom was not instantiated");
-                    return classRoom;
+                    NotInitialized();
                 }
 
                 return classRoom;
