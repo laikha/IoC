@@ -1,0 +1,15 @@
+{
+  "ServerUri": "https://sonarcloud.io/",
+  "Organization": {
+    "Key": "laikha",
+    "Name": "laikha"
+  },
+  "ProjectKey": "laikha_IoC",
+  "ProjectName": "IoC",
+  "Profiles": {
+    "CSharp": {
+      "ProfileKey": "AXBglWt8g0RbHJvk0LtM",
+      "ProfileTimestamp": "2021-05-05T07:40:20Z"
+    }
+  }
+}

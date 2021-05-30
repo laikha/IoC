@@ -2,6 +2,11 @@
 
   <PropertyGroup>
     <TargetFramework>netcoreapp3.0</TargetFramework>
+    <CodeAnalysisRuleSet>..\.sonarlint\laikha_ioccsharp.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
+
+  <ItemGroup>
+    <AdditionalFiles Include="..\.sonarlint\laikha_ioc\CSharp\SonarLint.xml" Link="SonarLint.xml" />
+  </ItemGroup>
 
 </Project>
