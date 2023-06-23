@@ -20,6 +20,11 @@ namespace School
         //if it was not seted up than the value is 7f
         public float MinGradeForPass { get; set; } = 7f;
 
+        public override float GetMidGrade()
+        {
+            return MinGradeForPass;
+        }
+
         public override string ToString()
         {
             return $"{Id} - {Name} ({Professor?.ToString()}) - {Description}";
