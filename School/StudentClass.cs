@@ -1,4 +1,6 @@
-﻿namespace School
+﻿using IoC;
+
+namespace School
 {
     /// <summary>
     /// Class that a student is subscribed
@@ -11,10 +13,10 @@
             
         }
 
-        private Student student;
-        private ClassRoom classRoom;
+        private IStudent student;
+        private I4IoC<ClassRoom> classRoom;
 
-        public Student MyStudent
+        public IStudent MyStudent
         {
             get
             {
@@ -33,7 +35,7 @@
             }
         }
 
-        public ClassRoom MyClassRoom {
+        public I4IoC<ClassRoom> MyClassRoom {
             get
             {
                 if (classRoom == null)
