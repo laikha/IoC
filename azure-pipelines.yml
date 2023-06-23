@@ -51,8 +51,9 @@ steps:
   
 - task: PublishCodeCoverageResults@2
   inputs:
-    summaryFileLocation: '$(System.DefaultWorkingDirectory)/IoC/Tests/CodeCoverage.xml'
+    summaryFileLocation: '$(System.DefaultWorkingDirectory)\Tests\CodeCoverage.xml'
     pathToSources: '$(solution)'
+
 - task: SonarCloudPublish@1
   inputs:
     pollingTimeoutSec: '300'
