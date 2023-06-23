@@ -37,10 +37,19 @@ steps:
     msbuildArgs: '/p:DeployOnBuild=true /p:WebPublishMethod=Package /p:PackageAsSingleFile=true /p:SkipInvalidConfigurations=true /p:DesktopBuildPackageLocation="$(build.artifactStagingDirectory)\WebApp.zip" /p:DeployIisAppPath="Default Web Site"'
     platform: '$(buildPlatform)'
     configuration: '$(buildConfiguration)'
-    
-- task: SonarCloudPublish@1
+
+- task: VSTest@2
   inputs:
-    pollingTimeoutSec: '300'
+    testAssemblyVer2: |
+      '**\bin\**\*Tests.dll'
+      '**\bin\**\Test*.dll'
+    platform: '$(buildPlatform)'
+    configuration: '$(buildConfiguration)'
 
 - task: SonarCloudAnalyze@1
   displayName: 'Run Code Analysis'
+  arguments: '--no-restore --collect:"XPlat Code Coverage" -- DataCollectionRunSettings.DataCollectors.DataCollector.Configuration.Format=cobertura,opencover'
+   
+- task: SonarCloudPublish@1
+  inputs:
+    pollingTimeoutSec: '300'
