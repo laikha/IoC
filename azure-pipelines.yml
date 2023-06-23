@@ -48,7 +48,6 @@ steps:
 
 - task: SonarCloudAnalyze@1
   displayName: 'Run Code Analysis'
-  arguments: '--no-restore --collect:"XPlat Code Coverage" -- DataCollectionRunSettings.DataCollectors.DataCollector.Configuration.Format=cobertura,opencover'
    
 - task: SonarCloudPublish@1
   inputs:
