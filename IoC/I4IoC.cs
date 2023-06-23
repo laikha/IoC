@@ -9,5 +9,6 @@ namespace IoC
     {
         string WhoAmI();
 
+        float GetMidGrade();
     }
 }
