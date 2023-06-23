@@ -13,7 +13,7 @@ namespace NUnitTestSchool
         }
 
         [Test]
-        public void IsPersonProfessor()
+        public void Test_ProfessorWhoAmI()
         {
             IoC.I4IoC<School.Person> iProfessor = new IoC.BasicClassInversion<School.Professor>();
 
@@ -24,7 +24,7 @@ namespace NUnitTestSchool
         }
 
         [Test]
-        public void IsPersonStudent()
+        public void Test_StudentWhoAmI()
         {
             IoC.I4IoC<School.Person> iStudent = new IoC.BasicClassInversion<School.Student>();
 
@@ -35,7 +35,7 @@ namespace NUnitTestSchool
         }
 
         [Test]
-        public void IsPerson()
+        public void Test_PersonWhoAmI()
         {
             IoC.I4IoC<School.Person> iPerson = new IoC.BasicClassInversion<School.Person>();
 
@@ -46,7 +46,7 @@ namespace NUnitTestSchool
         }
 
         [Test]
-        public void IsClass()
+        public void Test_ClassWhoAmI()
         {
             IoC.I4IoC<School.ClassRoom> iClass = new IoC.BasicClassInversion<School.ClassRoom>();
 
@@ -138,7 +138,7 @@ namespace NUnitTestSchool
         }
 
         [Test]
-        public void VerifyGradeStudent()
+        public void Test_IsAprooved()
         {
             List<School.ClassRoom> classes = new List<School.ClassRoom>
             {
