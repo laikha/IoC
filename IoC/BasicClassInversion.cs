@@ -13,7 +13,7 @@ namespace IoC
         /// Method to return this class' name
         /// </summary>
         /// <returns>the <code>T</code> class' name</returns>
-        public virtual string WhoAmI()
+        public string WhoAmI()
         {
             return typeof(T).Name;
         }
@@ -22,17 +22,21 @@ namespace IoC
         {
             return typeof(T).ToString();
         }
-
-        protected void NotInitialized()
+        public void NotInitialized(dynamic whoIs)
         {
 #pragma warning disable S3928 // Parameter names used into ArgumentException constructors should match an existing one 
-            throw new ArgumentNullException(nameof(T), $"{WhoAmI()} was not instantiated");
+            throw new ArgumentNullException(whoIs.Name, $"{WhoAmI(whoIs)} was not instantiated");
 #pragma warning restore S3928 // Parameter names used into ArgumentException constructors should match an existing one 
         }
 
         public virtual float GetMidGrade()
         {
             throw new NotImplementedException();
+        }
+
+        public string WhoAmI(dynamic whoIs)
+        {
+            return whoIs.Name;
         }
     }
 }

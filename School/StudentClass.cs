@@ -23,7 +23,7 @@ namespace School
                 if (student == null)
                 {
 
-                    NotInitialized();
+                    NotInitialized(typeof(Student));
 
                 }
 
@@ -41,7 +41,7 @@ namespace School
                 if (classRoom == null)
                 {
 
-                    NotInitialized();
+                    NotInitialized(typeof(ClassRoom));
 
                 }
 
