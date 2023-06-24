@@ -48,8 +48,12 @@ steps:
 
 - task: SonarCloudAnalyze@1
   displayName: 'Run Code Analysis'
-  arguments: '--no-restore --collect:"XPlat Code Coverage" -- DataCollectionRunSettings.DataCollectors.DataCollector.Configuration.Format=cobertura,opencover'
-   
+  
+- task: PublishCodeCoverageResults@2
+  inputs:
+    summaryFileLocation: '$(System.DefaultWorkingDirectory)/IoC/Tests/CodeCoverage.xml'
+    pathToSources: '$(solution)'
+
 - task: SonarCloudPublish@1
   inputs:
     pollingTimeoutSec: '300'
