@@ -48,7 +48,11 @@ steps:
 
 - task: SonarCloudAnalyze@1
   displayName: 'Run Code Analysis'
-   
+  
+- task: PublishCodeCoverageResults@2
+  inputs:
+    summaryFileLocation: '$(System.DefaultWorkingDirectory)/IoC/Tests/CodeCoverage.xml'
+    pathToSources: '$(solution)'
 - task: SonarCloudPublish@1
   inputs:
     pollingTimeoutSec: '300'
