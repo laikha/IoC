@@ -1,6 +1,7 @@
 using NUnit.Framework;
 using School;
 using System.Collections.Generic;
+using System.Linq.Expressions;
 
 namespace NUnitTestSchool
 {
@@ -15,7 +16,7 @@ namespace NUnitTestSchool
         [Test]
         public void Test_ProfessorWhoAmI()
         {
-            IoC.I4IoC<School.Person> iProfessor = new  IoC.BasicClassInversion<School.Professor>();
+            IoC.I4IoC<Professor> iProfessor = new IoC.BasicClassInversion<Professor>();
 
             string expected = "Professor";
             string returned = iProfessor.WhoAmI();
@@ -26,7 +27,7 @@ namespace NUnitTestSchool
         [Test]
         public void Test_StudentWhoAmI()
         {
-            IoC.I4IoC<School.Person> iStudent = new IoC.BasicClassInversion<School.Student>();
+            IoC.I4IoC<Student> iStudent = new IoC.BasicClassInversion<Student>();
 
             string expected = "Student";
             string returned = iStudent.WhoAmI();
@@ -191,6 +192,38 @@ namespace NUnitTestSchool
             bool returned = student.IsAprooved();
             
             Assert.IsTrue(returned);
+        }
+
+        [Test]
+        public void Test_ToString()
+        {
+            StudentClass studentClass = new StudentClass();
+
+            string expected = "School.StudentClass";
+            string returned = studentClass.ToString();
+
+            Assert.IsTrue(expected == returned, "Expected: {0} Returned: {1}", expected, returned);
+        }
+
+        [Test]
+        public void Test_NotInitialized()
+        {
+            StudentClass studentClass = new StudentClass();
+            
+            
+            string expected = "ClassRoom was not instantiated (Parameter 'ClassRoom')";
+            string retrieved=string.Empty;
+            try
+            {
+                var ret = studentClass.MyClassRoom;
+            }
+            catch (System.Exception e)
+            {
+
+                retrieved = e.Message ;
+            }
+
+            Assert.IsTrue(expected == retrieved, "Expected: {0} Returned: {1}", expected, retrieved);
         }
 
     }
