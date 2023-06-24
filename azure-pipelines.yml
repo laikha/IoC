@@ -49,10 +49,15 @@ steps:
 - task: SonarCloudAnalyze@1
   displayName: 'Run Code Analysis'
   
-- task: PublishCodeCoverageResults@2
+- script: |
+    reportgenerator -reports:$(Build.SourcesDirectory)/**/coverage.cobertura.xml -targetdir:$(Build.SourcesDirectory)/CodeCoverage -reporttypes:HtmlInline_AzurePipelines
+  displayName: 'Create code coverage report'
+
+- task: PublishCodeCoverageResults@1
+  displayName: 'Publish code coverage report'
   inputs:
-    summaryFileLocation: '$(System.DefaultWorkingDirectory)\Tests\CodeCoverage.xml'
-    pathToSources: '$(solution)'
+    codeCoverageTool: 'cobertura'
+    summaryFileLocation: '$(Build.SourcesDirectory)/**/coverage.cobertura.xml'
 
 - task: SonarCloudPublish@1
   inputs:
