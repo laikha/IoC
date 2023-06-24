@@ -48,7 +48,7 @@ steps:
 
 - task: SonarCloudAnalyze@1
   displayName: 'Run Code Analysis'
-  
+
 
 - script: |
     reportgenerator -reports:$(Build.SourcesDirectory)/**/coverage.cobertura.xml -targetdir:$(Build.SourcesDirectory)/CodeCoverage -reporttypes:HtmlInline_AzurePipelines
