@@ -41,6 +41,10 @@ steps:
 
 - task: VSTest@2
   inputs:
+    testAssemblyVer2: |
+      '**\bin\**\**\*Tests.dll'
+      '**\bin\**\**\*Test*.dll'
+      '**\bin\**\**\Test*.dll'
     solutionFile: '$(solution)'
     platform: '$(buildPlatform)'
     configuration: '$(buildConfiguration)'
