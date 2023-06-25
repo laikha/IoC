@@ -22,7 +22,7 @@ steps:
     SonarCloud: 'SonarCloud'
     organization: 'laikha'
     scannerMode: 'MSBuild'
-    projectKey: 'laikha_IoC'
+    projectKey: 'laikha_IoC'    
     projectName: 'IoC'
 
 - task: NuGetToolInstaller@1
@@ -40,9 +40,7 @@ steps:
 
 - task: VSTest@2
   inputs:
-    testAssemblyVer2: |
-      '**\bin\**\*Tests.dll'
-      '**\bin\**\Test*.dll'
+    solutionFile: '$(solution)'
     platform: '$(buildPlatform)'
     configuration: '$(buildConfiguration)'
 
@@ -51,8 +49,8 @@ steps:
 
 - task: reportgenerator@5
   inputs:
-    reports: '**\Tests\coverage.xml'
-    targetdir: 'coveragereport'
+    reports: '**\Tests\CodeCoverage.xml'
+    targetdir: '**\Tests\coveragereport'
     verbosity: 'Verbose'
     title: 'CoberturaPipeLine'
 
@@ -60,7 +58,9 @@ steps:
   displayName: 'Publish code coverage report'
   inputs:
     codeCoverageTool: 'cobertura'
-    summaryFileLocation: '$(Build.SourcesDirectory)/**/coverage.cobertura.xml'
+    summaryFileLocation: '$(Build.SourcesDirectory)/IoC/Tests/CodeCoverage.xml'
+    pathToSources: '$(solution)'
+    reportDirectory: '$(Build.SourcesDirectory)/IoC/Tests/CoverageReport'
 
 - task: SonarCloudPublish@1
   inputs:
