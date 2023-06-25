@@ -22,8 +22,7 @@ steps:
     SonarCloud: 'SonarCloud'
     organization: 'laikha'
     scannerMode: 'MSBuild'
-    projectKey: 'laikha_IoC'
-    
+    projectKey: 'laikha_IoC'    
     projectName: 'IoC'
 
 - task: NuGetToolInstaller@1
@@ -51,7 +50,7 @@ steps:
 - task: reportgenerator@5
   inputs:
     reports: '**\Tests\CodeCoverage.xml'
-    targetdir: 'coveragereport'
+    targetdir: '**\Tests\coveragereport'
     verbosity: 'Verbose'
     title: 'CoberturaPipeLine'
 
