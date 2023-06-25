@@ -23,6 +23,7 @@ steps:
     organization: 'laikha'
     scannerMode: 'MSBuild'
     projectKey: 'laikha_IoC'
+    
     projectName: 'IoC'
 
 - task: NuGetToolInstaller@1
@@ -40,10 +41,7 @@ steps:
 
 - task: VSTest@2
   inputs:
-    testAssemblyVer2: |
-      '**\bin\**\**\*Tests.dll'
-      '**\bin\**\**\*Test*.dll'
-      '**\bin\**\**\Test*.dll'
+    solutionFile: '$(solution)'
     platform: '$(buildPlatform)'
     configuration: '$(buildConfiguration)'
 
