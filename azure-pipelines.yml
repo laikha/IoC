@@ -13,8 +13,6 @@ variables:
   solution: '**/*.sln'
   buildPlatform: 'Any CPU'
   buildConfiguration: 'Release'
-  pathTest: '$(Build.SourcesDirectory)\IoC\Tests'
-  pathTestDll: '**\NUnitTestSchool\**'
 
 steps:
 
@@ -24,7 +22,7 @@ steps:
     SonarCloud: 'SonarCloud'
     organization: 'laikha'
     scannerMode: 'MSBuild'
-    projectKey: 'laikha_IoC'    
+    projectKey: 'laikha_IoC'
     projectName: 'IoC'
 
 - task: NuGetToolInstaller@1
@@ -35,6 +33,7 @@ steps:
     restoreSolution: '$(solution)'
 
 - task: VSBuild@1
+  displayName: Build Code
   inputs:
     solution: '$(solution)'
     msbuildArgs: '/p:DeployOnBuild=true /p:WebPublishMethod=Package /p:PackageAsSingleFile=true /p:SkipInvalidConfigurations=true /p:DesktopBuildPackageLocation="$(build.artifactStagingDirectory)\WebApp.zip" /p:DeployIisAppPath="Default Web Site"'
@@ -42,12 +41,12 @@ steps:
     configuration: '$(buildConfiguration)'
 
 - task: VSTest@2
+  displayName: Test Fase
   inputs:
     testAssemblyVer2: |
-      '$(pathTestDll)\bin\**\**\*Tests.dll'
-      '$(pathTestDll)\bin\**\**\*Test*.dll'
-      '$(pathTestDll)\bin\**\**\Test*.dll'
-    solutionFile: '$(solution)'
+      '**\NUnitTestSchool\**\bin\**\**\*Tests.dll'
+      '**\NUnitTestSchool\**\bin\**\**\*Test*.dll'
+      '**\NUnitTestSchool\**\bin\**\**\Test*.dll'
     platform: '$(buildPlatform)'
     configuration: '$(buildConfiguration)'
 
@@ -57,8 +56,8 @@ steps:
 - task: reportgenerator@5
   displayName: 'CoberturaPipeLine'
   inputs:
-    reports: '$(pathTest)\CodeCoverage.xml'
-    targetdir: ''$(pathTest)\coveragereport'
+    reports: '$(Build.SourcesDirectory)\IoC\Tests\CodeCoverage.xml'
+    targetdir: '$(Build.SourcesDirectory)\IoC\Tests\coveragereport'
     verbosity: 'Verbose'
     title: 'CoberturaPipeLine'
 
@@ -66,9 +65,9 @@ steps:
   displayName: 'Publish code coverage report'
   inputs:
     codeCoverageTool: 'cobertura'
-    summaryFileLocation: '$(pathTest)\CodeCoverage.xml'
+    summaryFileLocation: '$(Build.SourcesDirectory)\IoC\Tests\CodeCoverage.xml'
     pathToSources: '$(solution)'
-    reportDirectory: '$(pathTest)\CoverageReport'
+    reportDirectory: '$(Build.SourcesDirectory)\IoC\Tests\CoverageReport'
 
 
 - task: SonarCloudPublish@1
