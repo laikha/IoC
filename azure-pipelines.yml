@@ -18,6 +18,7 @@ variables:
 steps:
 
 - task: SonarCloudPrepare@1
+  displayName: Prepare Sonar Cloud
   inputs:
     SonarCloud: 'SonarCloud'
     organization: 'laikha'
@@ -28,6 +29,7 @@ steps:
 - task: NuGetToolInstaller@1
 
 - task: NuGetCommand@2
+  displayName: Update Nuget Packages
   inputs:
     restoreSolution: '$(solution)'
 
@@ -65,5 +67,6 @@ steps:
 
 
 - task: SonarCloudPublish@1
+  displayName: Publish Sonar
   inputs:
     pollingTimeoutSec: '300'
