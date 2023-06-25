@@ -62,6 +62,7 @@ steps:
     pathToSources: '$(solution)'
     reportDirectory: '$(Build.SourcesDirectory)/IoC/Tests/CoverageReport'
 
+
 - task: SonarCloudPublish@1
   inputs:
     pollingTimeoutSec: '300'
