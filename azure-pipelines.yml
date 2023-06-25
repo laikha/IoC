@@ -48,9 +48,10 @@ steps:
   displayName: 'Run Code Analysis'
 
 - task: reportgenerator@5
+  displayName: 'CoberturaPipeLine'
   inputs:
-    reports: '**\Tests\CodeCoverage.xml'
-    targetdir: '**\Tests\coveragereport'
+    reports: '$(Build.SourcesDirectory)/IoC/Tests/CodeCoverage.xml'
+    targetdir: '$(Build.SourcesDirectory)/IoC/Tests/coveragereport'
     verbosity: 'Verbose'
     title: 'CoberturaPipeLine'
 
