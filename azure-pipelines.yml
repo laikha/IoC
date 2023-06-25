@@ -42,6 +42,7 @@ steps:
   inputs:
     testAssemblyVer2: |
       '**\bin\**\*Tests.dll'
+      '**\bin\**\*Test*.dll'
       '**\bin\**\Test*.dll'
     platform: '$(buildPlatform)'
     configuration: '$(buildConfiguration)'
@@ -60,7 +61,9 @@ steps:
   displayName: 'Publish code coverage report'
   inputs:
     codeCoverageTool: 'cobertura'
-    summaryFileLocation: '$(Build.SourcesDirectory)/**/coverage.cobertura.xml'
+    summaryFileLocation: '$(Build.SourcesDirectory)/*IoC/Tests/CodeCoverage.xml'
+    pathToSources: '$(solution)'
+    reportDirectory: '$(Build.SourcesDirectory)/*IoC/Tests/CoverageReport
 
 - task: SonarCloudPublish@1
   inputs:
