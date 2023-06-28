@@ -44,9 +44,9 @@ steps:
   displayName: Test Fase
   inputs:
     testAssemblyVer2: |
-      '$(Build.SourcesDirectory)\**\*Tests.dll'
-      '$(Build.SourcesDirectory)\**\*Test*.dll'
-      '$(Build.SourcesDirectory)\**\Test*.dll'
+      '**\*Tests.dll'
+      '**\*Test*.dll'
+      '**\Test*.dll'
     platform: '$(buildPlatform)'
     configuration: '$(buildConfiguration)'
 
