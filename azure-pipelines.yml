@@ -54,20 +54,21 @@ steps:
   displayName: 'Run Code Analysis'
 
 - task: reportgenerator@5
-  displayName: 'CoberturaPipeLine'
+  displayName: 'Cobertura'
   inputs:
     reports: '$(Build.SourcesDirectory)\Tests\CodeCoverage.xml'
     targetdir: '$(Build.SourcesDirectory)\Tests\coveragereport'
     verbosity: 'Verbose'
-    title: 'CoberturaPipeLine'
+    title: 'Cobertura'
 
 - task: PublishCodeCoverageResults@1
-  displayName: 'Publish code coverage report'
+  displayName: 'Publish Report'
   inputs:
     codeCoverageTool: 'cobertura'
     summaryFileLocation: '$(Build.SourcesDirectory)\Tests\CodeCoverage.xml'
-    pathToSources: '**/'
+    pathToSources: '$(Build.SourcesDirectory)'
     reportDirectory: '$(Build.SourcesDirectory)\Tests\CoverageReport'
+    title: 'Covegare Report'
 
 
 - task: SonarCloudPublish@1
