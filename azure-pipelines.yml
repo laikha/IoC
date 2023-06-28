@@ -56,8 +56,8 @@ steps:
 - task: reportgenerator@5
   displayName: 'CoberturaPipeLine'
   inputs:
-    reports: '$(Build.SourcesDirectory)\IoC\Tests\CodeCoverage.xml'
-    targetdir: '$(Build.SourcesDirectory)\IoC\Tests\coveragereport'
+    reports: '$(Build.SourcesDirectory)\Tests\CodeCoverage.xml'
+    targetdir: '$(Build.SourcesDirectory)\Tests\coveragereport'
     verbosity: 'Verbose'
     title: 'CoberturaPipeLine'
 
@@ -65,9 +65,9 @@ steps:
   displayName: 'Publish code coverage report'
   inputs:
     codeCoverageTool: 'cobertura'
-    summaryFileLocation: '$(Build.SourcesDirectory)\IoC\Tests\CodeCoverage.xml'
+    summaryFileLocation: '$(Build.SourcesDirectory)\Tests\CodeCoverage.xml'
     pathToSources: '$(solution)'
-    reportDirectory: '$(Build.SourcesDirectory)\IoC\Tests\CoverageReport'
+    reportDirectory: '$(Build.SourcesDirectory)\Tests\CoverageReport'
 
 
 - task: SonarCloudPublish@1
