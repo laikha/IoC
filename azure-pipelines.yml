@@ -43,10 +43,7 @@ steps:
 - task: VSTest@2
   displayName: Test Fase
   inputs:
-    testAssemblyVer2: |
-      '**\*Tests.dll'
-      '**\*Test*.dll'
-      '**\Test*.dll'
+    solution: '$(solution)' 
     platform: '$(buildPlatform)'
     configuration: '$(buildConfiguration)'
 
