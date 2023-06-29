@@ -44,9 +44,9 @@ steps:
   displayName: Test Fase
   inputs:
     testAssemblyVer2: |
-      '**\*Tests.dll'
-      '**\*Test*.dll'
-      '**\Test*.dll'
+      '**\bin\**\*Tests.dll'
+      '**\bin\**\*Test*.dll'
+      '**\bin\**\Test*.dll'
     platform: '$(buildPlatform)'
     configuration: '$(buildConfiguration)'
 
