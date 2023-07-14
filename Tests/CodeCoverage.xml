@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
-<coverage line-rate="0.9393939393939394" branch-rate="0.5555555555555556" complexity="62" version="1.9" timestamp="1687663503" lines-covered="217" lines-valid="231" branches-covered="10" branches-valid="18">
+<coverage line-rate="0.9393939393939394" branch-rate="0.5555555555555556" complexity="62" version="1.9" timestamp="1689366213" lines-covered="217" lines-valid="231" branches-covered="10" branches-valid="18">
   <packages>
     <package line-rate="0.8307692307692308" branch-rate="0.625" complexity="37" name="School">
       <classes>
