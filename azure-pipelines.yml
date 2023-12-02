@@ -73,7 +73,6 @@ steps:
     reportDirectory: '$(Build.SourcesDirectory)\Tests\CoverageReport'
     title: 'Cobertura Report'
 
-
 - task: SonarCloudPublish@1
   displayName: Publish Sonar
   inputs:
