@@ -1,13 +1,13 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.29411.108
+# Visual Studio Version 17
+VisualStudioVersion = 17.8.34316.72
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IoC", "IoC\IoC.csproj", "{A12FAD8D-7687-45AF-9E4E-A158712E6EB3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IoC", "IoC\IoC.csproj", "{A12FAD8D-7687-45AF-9E4E-A158712E6EB3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "School", "School\School.csproj", "{C21694FB-8D68-4118-9168-C302B5CC160B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "School", "School\School.csproj", "{C21694FB-8D68-4118-9168-C302B5CC160B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NUnitTestSchool", "NUnitTestSchool\NUnitTestSchool.csproj", "{9D911686-6A20-4F93-9683-F1AD128B308D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NUnitTestSchool", "NUnitTestSchool\NUnitTestSchool.csproj", "{9D911686-6A20-4F93-9683-F1AD128B308D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
