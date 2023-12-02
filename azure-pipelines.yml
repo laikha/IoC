@@ -62,11 +62,11 @@ steps:
 - task: PublishCodeCoverageResults@1
   displayName: 'Publish Report'
   inputs:
-    codeCoverageTool: 'cobertura'
+    codeCoverageTool: 'OpenCover'
     summaryFileLocation: '$(Build.SourcesDirectory)\Tests\CodeCoverage.xml'
     pathToSources: '$(Build.SourcesDirectory)'
     reportDirectory: '$(Build.SourcesDirectory)\Tests\CoverageReport'
-    title: 'Covegare Report'
+    title: 'OpenCover Report'
 
 
 - task: SonarCloudPublish@1
