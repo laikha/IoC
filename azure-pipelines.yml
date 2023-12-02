@@ -51,12 +51,13 @@ steps:
   displayName: 'Run Code Analysis'
 
 - task: reportgenerator@5
-  displayName: 'Cobertura'
+  displayName: 'OpenCover'
   inputs:
+    codeCoverageTool: 'OpenCover'
     reports: '$(Build.SourcesDirectory)\Tests\CodeCoverage.xml'
     targetdir: '$(Build.SourcesDirectory)\Tests\CoverageReport'
     verbosity: 'Verbose'
-    title: 'Cobertura'
+    title: 'OpenCover'
 
 - task: PublishCodeCoverageResults@1
   displayName: 'Publish Report'
