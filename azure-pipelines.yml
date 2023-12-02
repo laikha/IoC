@@ -54,7 +54,7 @@ steps:
   displayName: 'Cobertura'
   inputs:
     reports: '$(Build.SourcesDirectory)\Tests\CodeCoverage.xml'
-    targetdir: '$(Build.SourcesDirectory)\Tests\coveragereport'
+    targetdir: '$(Build.SourcesDirectory)\Tests\CoverageReport'
     verbosity: 'Verbose'
     title: 'Cobertura'
 
