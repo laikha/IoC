@@ -47,6 +47,11 @@ steps:
     platform: '$(buildPlatform)'
     configuration: '$(buildConfiguration)'
 
+- script: |
+  dotnet tool install -g dotnet-reportgenerator-globaltool
+  reportgenerator -reports:$(Build.SourcesDirectory)\Tests\coverage.cobertura.xml - targetdir:$(Build.SourcesDirectory)\CodeCoverage -reporttypes:HtmlInline_AzurePipelines;Cobertura
+  displayName: 'Creating code coverage report...'
+
 - task: SonarCloudAnalyze@1
   displayName: 'Run Code Analysis'
 
@@ -60,13 +65,13 @@ steps:
     title: 'OpenCover'
 
 - task: PublishCodeCoverageResults@1
-  displayName: 'Publish Report'
+  displayName: 'Cobertura Report'
   inputs:
-    codeCoverageTool: 'OpenCover'
+    codeCoverageTool: Cobertura
     summaryFileLocation: '$(Build.SourcesDirectory)\Tests\CodeCoverage.xml'
     pathToSources: '$(Build.SourcesDirectory)'
     reportDirectory: '$(Build.SourcesDirectory)\Tests\CoverageReport'
-    title: 'OpenCover Report'
+    title: 'Cobertura Report'
 
 
 - task: SonarCloudPublish@1
