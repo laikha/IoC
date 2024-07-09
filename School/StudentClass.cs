@@ -8,13 +8,14 @@ namespace School
     /// @author Ricardo Silva
     public class StudentClass : IoC.BasicClassInversion<StudentClass>
     {
-        public StudentClass()
-        {
-            
-        }
 
         private IStudent student;
-        private I4IoC<ClassRoom> classRoom;
+        private I4IoC<Room> classRoom;
+
+        public StudentClass()
+        {
+
+        }
 
         public IStudent MyStudent
         {
@@ -35,13 +36,13 @@ namespace School
             }
         }
 
-        public I4IoC<ClassRoom> MyClassRoom {
+        public I4IoC<Room> MyClassRoom {
             get
             {
                 if (classRoom == null)
                 {
 
-                    NotInitialized(typeof(ClassRoom));
+                    NotInitialized(typeof(Room));
 
                 }
 
