@@ -49,9 +49,9 @@ namespace NUnitTestSchool
         [Test]
         public void Test_ClassWhoAmI()
         {
-            IoC.I4IoC<School.ClassRoom> iClass = new School.ClassRoom();
+            IoC.I4IoC<School.Room> iClass = new School.Room();
 
-            string expected = "ClassRoom";
+            string expected = "Room";
             string returned = iClass.WhoAmI();
 
             Assert.IsTrue(expected == returned, "Expected: {0} Returned: {1}", expected, returned);
@@ -66,7 +66,7 @@ namespace NUnitTestSchool
                 Name = "Will"
             };
 
-            School.ClassRoom classRoom = new School.ClassRoom
+            School.Room classRoom = new School.Room
             {
                 Description = "Game Developer",
                 Id = 50,
@@ -131,23 +131,23 @@ namespace NUnitTestSchool
         [Test]
         public void Test_IsAprooved()
         {
-            List<School.ClassRoom> classes = new List<School.ClassRoom>
+            List<School.Room> classes = new List<School.Room>
             {
-                new School.ClassRoom
+                new School.Room
                 {
                     Id = 1,
                     Description = "Class of History",
                     Name = "Hist1",
                     MinGradeForPass = 7f
                 },
-                new School.ClassRoom
+                new School.Room
                 {
                     Id = 2,
                     Description = "Class of Biology",
                     Name = "Bio1",
                     MinGradeForPass = 6f
                 },
-                new School.ClassRoom
+                new School.Room
                 {
                     Id = 3,
                     Description = "Class of Math",
@@ -211,8 +211,9 @@ namespace NUnitTestSchool
             StudentClass studentClass = new StudentClass();
             
             
-            string expected = "ClassRoom was not instantiated (Parameter 'ClassRoom')";
+            string expected = "Room was not instantiated (Parameter 'Room')";
             string retrieved=string.Empty;
+
             try
             {
                 var ret = studentClass.MyClassRoom;
