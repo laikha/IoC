@@ -3,11 +3,10 @@
 namespace IoC
 {
     /// <summary>
-    /// Class base for all class' that need
+    /// Classe base para classes que precisam fornecer informações e validação sobre o tipo T.
     /// </summary>
-    /// <typeparam name="T">The class</typeparam>
-    /// @author Ricardo Silva
-    public class BasicClassInversion<T>: I4IoC<T>
+    /// <typeparam name="T">O tipo associado à classe.</typeparam>
+    public abstract class BasicClassInversion<T> : I4IoC<T>
     {
         /// <summary>
         /// Method to return this class' name
@@ -22,21 +21,26 @@ namespace IoC
         {
             return typeof(T).ToString();
         }
-        public void NotInitialized(dynamic whoIs)
+        public void NotInitialized(T whoIs)
         {
-#pragma warning disable S3928 // Parameter names used into ArgumentException constructors should match an existing one 
-            throw new ArgumentNullException(whoIs.Name, $"{WhoAmI(whoIs)} was not instantiated");
-#pragma warning restore S3928 // Parameter names used into ArgumentException constructors should match an existing one 
+            if (whoIs == null)
+            {
+                throw new ArgumentNullException(nameof(whoIs), $"{WhoAmI()} was not instantiated");
+            }
+
+            throw new InvalidOperationException($"{WhoAmI(whoIs)} was not instantiated");
         }
 
-        public virtual float GetMidGrade()
-        {
-            throw new NotImplementedException();
-        }
+        public abstract float GetMidGrade();
 
-        public string WhoAmI(dynamic whoIs)
+        public string WhoAmI(T whoIs)
         {
-            return whoIs.Name;
+            if (whoIs == null)
+            {
+                throw new ArgumentNullException(nameof(whoIs));
+            }
+
+            return whoIs.GetType().Name;
         }
     }
 }
