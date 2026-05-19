@@ -6,7 +6,7 @@ namespace IoC
     /// Classe base para classes que precisam fornecer informações e validação sobre o tipo T.
     /// </summary>
     /// <typeparam name="T">O tipo associado à classe.</typeparam>
-    public abstract class BasicClassInversion<T> : I4IoC<T>
+    public class BasicClassInversion<T> : I4IoC<T>
     {
         /// <summary>
         /// Method to return this class' name
@@ -31,7 +31,20 @@ namespace IoC
             throw new InvalidOperationException($"{WhoAmI(whoIs)} was not instantiated");
         }
 
-        public abstract float GetMidGrade();
+        public void NotInitialized(Type whoIs)
+        {
+            if (whoIs == null)
+            {
+                throw new ArgumentNullException(nameof(whoIs));
+            }
+
+            throw new ArgumentNullException(whoIs.Name, $"{whoIs.Name} was not instantiated");
+        }
+
+        public virtual float GetMidGrade()
+        {
+            throw new NotImplementedException();
+        }
 
         public string WhoAmI(T whoIs)
         {
