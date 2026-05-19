@@ -24,7 +24,7 @@ variables:
 
 steps:
 
-- task: SonarCloudPrepare@1
+- task: SonarCloudPrepare@2
   displayName: Prepare Sonar Cloud
   inputs:
     SonarCloud: 'SonarCloud'
@@ -133,7 +133,7 @@ steps:
   env:
     SYSTEM_ACCESSTOKEN: $(System.AccessToken)
 
-- task: SonarCloudAnalyze@1
+- task: SonarCloudAnalyze@2
   displayName: 'Run Code Analysis'
 
 - task: reportgenerator@5
@@ -155,7 +155,7 @@ steps:
     title: 'Cobertura Report'
 
 
-- task: SonarCloudPublish@1
+- task: SonarCloudPublish@2
   displayName: Publish Sonar
   inputs:
     pollingTimeoutSec: '300'
