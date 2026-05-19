@@ -10,7 +10,7 @@ namespace School
     public class Student : Person, IStudent
     {
         //His classes
-        public List<StudentClass> Classes { get; set; }
+        public List<StudentClass> Classes { get; set; } = new();
 
 
 
