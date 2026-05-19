@@ -66,7 +66,7 @@ steps:
       $repoId = "$(Build.Repository.ID)"
       $sourceRef = "$(Build.SourceBranch)"
       $targetRef = "refs/heads/develop"
-      $title = "Feature: $($sourceRef -replace '^refs/heads/', '') -> develop"
+      $title = "Develop <- Feature"
       $description = "PR gerado automaticamente por pipeline para integrar a branch feature em develop."
       $token = $env:SYSTEM_ACCESSTOKEN
       if (-not $token) {
@@ -105,7 +105,7 @@ steps:
       $repoId = "$(Build.Repository.ID)"
       $sourceRef = "refs/heads/develop"
       $targetRef = "refs/heads/main"
-      $title = "Promover develop para main"
+      $title = "Main <- Develop"
       $description = "PR gerado automaticamente por pipeline após atualização da branch develop."
       $token = $env:SYSTEM_ACCESSTOKEN
       if (-not $token) {
