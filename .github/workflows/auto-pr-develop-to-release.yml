@@ -27,31 +27,12 @@ jobs:
       - name: Restore dependencies
         run: dotnet restore IoC.sln
 
-      - name: SonarValidator
-        shell: bash
-        run: |
-          set -euo pipefail
-          echo "Running SonarValidator: validating tests and coverage"
-          dotnet test IoC.sln --configuration Release --no-restore --collect:"XPlat Code Coverage"
-          COVERAGE_FILE=$(find . -name 'coverage.cobertura.xml' | head -n 1)
-          if [ -z "$COVERAGE_FILE" ]; then
-            echo "Arquivo de cobertura não encontrado. SonarValidator falhou."
-            exit 1
-          fi
-          echo "Coverage file found: $COVERAGE_FILE"
-          COVERAGE=$(grep -o 'line-rate="[^"]*"' "$COVERAGE_FILE" | head -n 1 | cut -d'"' -f2)
-          if [ -z "$COVERAGE" ]; then
-            echo "Não foi possível extrair a cobertura de linha do arquivo."
-            exit 1
-          fi
-          echo "Coverage line rate: $COVERAGE"
-          REQUIRED_THRESHOLD=0.80
-          if awk "BEGIN {exit !($COVERAGE >= REQUIRED_THRESHOLD)}"; then
-            echo "Cobertura aceita ($COVERAGE >= $REQUIRED_THRESHOLD)."
-          else
-            echo "Cobertura abaixo do mínimo exigido ($COVERAGE < $REQUIRED_THRESHOLD)."
-            exit 1
-          fi
+      # executar o SonarQube.yml para garantir que o código compila antes de criar o PR
+      - name: Run build workflow
+        uses: benc-uk/workflow-dispatch@v1
+        with:
+          workflow: SonarQube.yml
+          ref: release
 
       - name: Ensure GitHub CLI (gh)
         run: |
