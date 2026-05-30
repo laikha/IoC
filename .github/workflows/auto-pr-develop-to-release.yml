@@ -28,10 +28,12 @@ jobs:
         run: dotnet restore IoC.sln
 
       - name: SonarValidator
+        shell: bash
         run: |
+          set -euo pipefail
           echo "Running SonarValidator: validating tests and coverage"
           dotnet test IoC.sln --configuration Release --no-restore --collect:"XPlat Code Coverage"
-          COVERAGE_FILE=$(find . -path '*/TestResults/*/coverage.cobertura.xml' | head -n 1)
+          COVERAGE_FILE=$(find . -name 'coverage.cobertura.xml' | head -n 1)
           if [ -z "$COVERAGE_FILE" ]; then
             echo "Arquivo de cobertura não encontrado. SonarValidator falhou."
             exit 1
