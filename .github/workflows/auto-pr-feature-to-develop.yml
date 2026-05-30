@@ -24,16 +24,16 @@ jobs:
       contents: read
 
     steps:
-      - name: Setup .NET
-        uses: actions/setup-dotnet@v4
-        with:
-          dotnet-version: '8.0.x'
-
       - name: Restore dependencies
         run: dotnet restore IoC.sln
 
       - name: Validate tests
         run: dotnet test IoC.sln --configuration Release --no-restore --verbosity normal
+        
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '8.0.x'
 
   Git-verify:
     needs: Tests
