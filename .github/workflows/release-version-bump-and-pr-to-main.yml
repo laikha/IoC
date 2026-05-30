@@ -44,7 +44,7 @@ jobs:
             git push origin release
           fi
 
-  Git-verify:
+  Git-verify-main:
     needs: bump_and_pr
     runs-on: ubuntu-latest   # ← Runner gratuito do GitHub
     permissions:
@@ -60,7 +60,7 @@ jobs:
           gh --version
 
   Open-PR:
-    needs: Git-verify
+    needs: Git-verify-main
     runs-on: ubuntu-latest   # ← Runner gratuito do GitHub
     permissions:
       contents: read
