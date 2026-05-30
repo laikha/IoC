@@ -17,6 +17,13 @@ jobs:
         with:
           fetch-depth: 0
 
+  Tests:
+    needs: Warm-up
+    runs-on: ubuntu-latest   # ← Runner gratuito do GitHub
+    permissions:
+      contents: read
+
+    steps:
       - name: Setup .NET
         uses: actions/setup-dotnet@v4
         with:
@@ -25,13 +32,6 @@ jobs:
       - name: Restore dependencies
         run: dotnet restore IoC.sln
 
-  Tests:
-    needs: Warm-up
-    runs-on: ubuntu-latest   # ← Runner gratuito do GitHub
-    permissions:
-      contents: read
-
-    steps:
       - name: Validate tests
         run: dotnet test IoC.sln --configuration Release --no-restore --verbosity normal
 
