@@ -19,7 +19,6 @@ jobs:
 
   Tests:
     needs: Warm-up
-    if: ${{ github.event.pull_request.merged == true }}
     runs-on: ubuntu-latest   # ← Runner gratuito do GitHub
     permissions:
       contents: read
