@@ -27,6 +27,7 @@ jobs:
         run: dotnet restore IoC.sln
 
   Sonar:
+    needs: Warm-up-release
     name: Build and analyze
     runs-on: windows-latest
     steps:
@@ -88,6 +89,11 @@ jobs:
       pull-requests: write
 
     steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
       - name: Create PR if missing (develop -> release)
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
