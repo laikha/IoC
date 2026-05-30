@@ -27,7 +27,7 @@ jobs:
         run: dotnet restore IoC.sln
 
   Sonar:
-    if: ${{ github.event.pull_request.merged == true }}
+    needs: Warm-up
     runs-on: ubuntu-latest   # ← Runner gratuito do GitHub
     permissions:
       contents: read
@@ -41,7 +41,7 @@ jobs:
           ref: main
 
   Git-verify:
-    if: ${{ github.event.pull_request.merged == true }}
+    needs: Sonar
     runs-on: ubuntu-latest   # ← Runner gratuito do GitHub
     permissions:
       contents: read
@@ -56,7 +56,7 @@ jobs:
           gh --version
 
   Open-PR:
-    if: ${{ github.event.pull_request.merged == true }}
+    needs: Git-verify
     runs-on: ubuntu-latest   # ← Runner gratuito do GitHub
     permissions:
       contents: read

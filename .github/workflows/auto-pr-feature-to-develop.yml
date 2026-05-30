@@ -7,7 +7,31 @@ on:
 
 jobs:
   Warm-up:
-    if: ${{ github.event.pull_request.merged == true }}
+    runs-on: ubuntu-latest   # ← Runner gratuito do GitHub
+    permissions:
+      contents: read
+
+    steps:
+      - name: Ensure or install GitHub CLI (gh)
+        run: |
+          if command -v gh >/dev/null 2>&1; then
+            echo "gh já instalado"
+            gh --version
+            exit 0
+          fi
+          echo "gh não encontrado — tentando instalar via apt..."
+          set -eux
+          sudo apt update
+          sudo apt install -y curl apt-transport-https gnupg
+          curl -fsSL https://cli.github.com/packages/githubcli-archive-keyring.gpg | sudo dd of=/usr/share/keyrings/githubcli-archive-keyring.gpg
+          sudo chmod go+r /usr/share/keyrings/githubcli-archive-keyring.gpg
+          echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/githubcli-archive-keyring.gpg] https://cli.github.com/packages stable main" | sudo tee /etc/apt/sources.list.d/github-cli.list > /dev/null
+          sudo apt update
+          sudo apt install -y gh
+          gh --version
+
+  Tests:
+    needs: Warm-up
     runs-on: ubuntu-latest   # ← Runner gratuito do GitHub
     permissions:
       contents: read
@@ -21,23 +45,16 @@ jobs:
       - name: Setup .NET
         uses: actions/setup-dotnet@v4
         with:
-          dotnet-version: '8.0.x'
+          dotnet-version: '10.0.x'
 
       - name: Restore dependencies
         run: dotnet restore IoC.sln
 
-  Tests:
-    if: ${{ github.event.pull_request.merged == true }}
-    runs-on: ubuntu-latest   # ← Runner gratuito do GitHub
-    permissions:
-      contents: read
-
-    steps:
       - name: Validate tests
-        run: dotnet test IoC.sln --configuration Release --no-restore --verbosity normal
+        run: dotnet test IoC.sln --configuration Release --verbosity normal
 
   Git-verify:
-    if: ${{ github.event.pull_request.merged == true }}
+    needs: Tests
     runs-on: ubuntu-latest   # ← Runner gratuito do GitHub
     permissions:
       contents: read
@@ -52,13 +69,17 @@ jobs:
           gh --version
 
   Open-PR:
-    if: ${{ github.event.pull_request.merged == true }}
+    needs: [Tests, Git-verify]
     runs-on: ubuntu-latest   # ← Runner gratuito do GitHub
     permissions:
       contents: read
       pull-requests: write
 
     steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
       - name: Create PR if missing (feature -> develop)
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
