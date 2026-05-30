@@ -9,8 +9,8 @@ namespace School
     public class StudentClass : IoC.BasicClassInversion<StudentClass>
     {
 
-        private IStudent student;
-        private I4IoC<Room> classRoom;
+        private IStudent? student;
+        private I4IoC<Room>? classRoom;
 
         public StudentClass()
         {
@@ -28,7 +28,7 @@ namespace School
 
                 }
 
-                return student;
+                return student!;
             }
             set
             {
@@ -46,7 +46,7 @@ namespace School
 
                 }
 
-                return classRoom;
+                return classRoom!;
             }
             set
             {
