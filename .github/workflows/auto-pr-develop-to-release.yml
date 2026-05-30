@@ -6,12 +6,11 @@ on:
     branches: [develop]
 
 jobs:
-  open_pr:
+  Warm-up:
     if: ${{ github.event.pull_request.merged == true }}
     runs-on: ubuntu-latest   # ← Runner gratuito do GitHub
     permissions:
       contents: read
-      pull-requests: write
 
     steps:
       - name: Checkout
@@ -27,13 +26,27 @@ jobs:
       - name: Restore dependencies
         run: dotnet restore IoC.sln
 
+  Sonar:
+    if: ${{ github.event.pull_request.merged == true }}
+    runs-on: ubuntu-latest   # ← Runner gratuito do GitHub
+    permissions:
+      contents: read
+
+    steps:
       # executar o SonarQube.yml para garantir que o código compila antes de criar o PR
       - name: Run build workflow
         uses: benc-uk/workflow-dispatch@v1
         with:
           workflow: SonarQube.yml
-          ref: release
+          ref: main
 
+  Git-verify:
+    if: ${{ github.event.pull_request.merged == true }}
+    runs-on: ubuntu-latest   # ← Runner gratuito do GitHub
+    permissions:
+      contents: read
+
+    steps:
       - name: Ensure GitHub CLI (gh)
         run: |
           if ! command -v gh >/dev/null 2>&1; then
@@ -42,6 +55,14 @@ jobs:
           fi
           gh --version
 
+  Open-PR:
+    if: ${{ github.event.pull_request.merged == true }}
+    runs-on: ubuntu-latest   # ← Runner gratuito do GitHub
+    permissions:
+      contents: read
+      pull-requests: write
+
+    steps:
       - name: Create PR if missing (develop -> release)
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
