@@ -27,6 +27,7 @@ jobs:
         run: dotnet restore IoC.sln
 
   Tests:
+    needs: Warm-up
     if: ${{ github.event.pull_request.merged == true }}
     runs-on: ubuntu-latest   # ← Runner gratuito do GitHub
     permissions:
@@ -37,6 +38,7 @@ jobs:
         run: dotnet test IoC.sln --configuration Release --no-restore --verbosity normal
 
   Git-verify:
+    needs: Tests
     if: ${{ github.event.pull_request.merged == true }}
     runs-on: ubuntu-latest   # ← Runner gratuito do GitHub
     permissions:
@@ -52,6 +54,7 @@ jobs:
           gh --version
 
   Open-PR:
+    needs: [Tests, Git-verify]
     if: ${{ github.event.pull_request.merged == true }}
     runs-on: ubuntu-latest   # ← Runner gratuito do GitHub
     permissions:

@@ -45,6 +45,7 @@ jobs:
           fi
 
   Git-verify:
+    needs: bump_and_pr
     if: ${{ github.event.pull_request.merged == true }}
     runs-on: ubuntu-latest   # ← Runner gratuito do GitHub
     permissions:
@@ -60,6 +61,7 @@ jobs:
           gh --version
 
   Open-PR:
+    needs: Git-verify
     if: ${{ github.event.pull_request.merged == true }}
     runs-on: ubuntu-latest   # ← Runner gratuito do GitHub
     permissions:
