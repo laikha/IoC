@@ -82,54 +82,35 @@ jobs:
           gh --version
 
   Open-PR:
-    needs: Git-verify-release
+    needs: Git-verify-main
     runs-on: ubuntu-latest   # ← Runner gratuito do GitHub
     permissions:
       contents: read
       pull-requests: write
 
     steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
-
-      - name: Create PR if missing (develop -> release)
+      - name: Create PR if missing (release -> main)
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          VERSION: ${{ steps.bump.outputs.version }}
         run: |
-          set -euo pipefail
-          git fetch --no-tags --prune origin +refs/heads/*:refs/remotes/origin/* || true
-          BRANCH="develop"
-          echo "Verificando branches: head=$BRANCH base=release"
-          if ! git show-ref --verify --quiet refs/remotes/origin/"$BRANCH"; then
-            echo "Head branch origin/$BRANCH não encontrada — abortando"
-            exit 1
-          fi
-          if ! git show-ref --verify --quiet refs/remotes/origin/release; then
-            echo "Base branch origin/release não encontrada — abortando"
-            exit 1
-          fi
-          COMMITS=$(git rev-list --count origin/release..origin/"$BRANCH" || echo 0)
-          if [ "$COMMITS" -eq 0 ]; then
-            echo "Nenhum commit entre release e $BRANCH — pulando criação de PR"
-            exit 0
-          fi
-
-          PR_NUMBER=$(gh pr list --state open --head "$BRANCH" --base "release" --json number --jq '.[0].number' 2>/dev/null || echo "")
+          PR_NUMBER=$(gh pr list --state open --head "release" --base "main" --json number --jq '.[0].number' 2>/dev/null || echo "")
+          
           if [ -n "$PR_NUMBER" ] && [ "$PR_NUMBER" != "null" ]; then
             echo "PR já existe (#$PR_NUMBER). Nada a fazer."
             exit 0
           fi
 
           gh pr create \
-            --base "release" \
-            --head "$BRANCH" \
-            --title "chore: promote develop -> release" \
-            --body "Promoção automática develop -> release (merge detectado em develop)."
+            --base "main" \
+            --head "release" \
+            --title "release: promote release (v$VERSION) -> main" \
+            --body "Promoção automática release -> main. Versão: v$VERSION"
 
           NEW_PR=$(gh pr list --state open --head "$BRANCH" --base "release" --json number --jq '.[0].number')
           echo "Criado PR #$NEW_PR"
-
+          
+          # Tentar adicionar labels se existirem
           gh pr edit "$NEW_PR" --add-label "automated" 2>/dev/null || true
           gh pr edit "$NEW_PR" --add-label "release" 2>/dev/null || true
+          echo "Labels adicionadas ao PR #$NEW_PR"
