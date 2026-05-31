@@ -54,6 +54,15 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+      
+      - name: Ensure Node
+        run: |
+          node -v
+
+      - name: Bump version
+        id: bump
+        run: |
+          node .github/scripts/bump-version.js
 
       - name: Find existing PR without git context
         env:
