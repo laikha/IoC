@@ -70,7 +70,22 @@ jobs:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           BRANCH: ${{ github.ref_name }}
         run: |
+          set -euo pipefail
+          git fetch --no-tags --prune origin +refs/heads/*:refs/remotes/origin/* || true
           echo "Branch atual: $BRANCH"
+          if ! git show-ref --verify --quiet refs/remotes/origin/"$BRANCH"; then
+            echo "Head branch origin/$BRANCH não encontrada — abortando"
+            exit 1
+          fi
+          if ! git show-ref --verify --quiet refs/remotes/origin/develop; then
+            echo "Base branch origin/develop não encontrada — abortando"
+            exit 1
+          fi
+          COMMITS=$(git rev-list --count origin/develop..origin/"$BRANCH" || echo 0)
+          if [ "$COMMITS" -eq 0 ]; then
+            echo "Nenhum commit entre develop e $BRANCH — pulando criação de PR"
+            exit 0
+          fi
 
           PR_NUMBER=$(gh pr list --state open --head "$BRANCH" --base "develop" --json number --jq '.[0].number' 2>/dev/null || echo "")
           if [ -n "$PR_NUMBER" ] && [ "$PR_NUMBER" != "null" ]; then
