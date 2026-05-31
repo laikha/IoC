@@ -44,23 +44,8 @@ jobs:
             git push origin release
           fi
 
-  Git-verify-main:
-    needs: bump_and_pr
-    runs-on: ubuntu-latest   # ← Runner gratuito do GitHub
-    permissions:
-      contents: read
-
-    steps:
-      - name: Ensure GitHub CLI (gh)
-        run: |
-          if ! command -v gh &> /dev/null; then
-            echo "gh não encontrado no runner. Instale GitHub CLI no self-hosted runner."
-            exit 1
-          fi
-          gh --version
-
   Open-PR:
-    needs: Git-verify-main
+    needs: bump_and_pr
     runs-on: ubuntu-latest   # ← Runner gratuito do GitHub
     permissions:
       contents: read
