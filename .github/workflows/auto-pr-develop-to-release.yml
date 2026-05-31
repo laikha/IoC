@@ -1,0 +1,135 @@
+name: Auto PR (develop -> release)
+
+on:
+  pull_request:
+    types: [closed]
+    branches: [develop]
+
+jobs:
+  Warm-up-release:
+    if: ${{ github.event.pull_request.merged == true }}
+    runs-on: ubuntu-latest   # ← Runner gratuito do GitHub
+    permissions:
+      contents: read
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '8.0.x'
+
+      - name: Restore dependencies
+        run: dotnet restore IoC.sln
+
+  Sonar:
+    needs: Warm-up-release
+    name: Build and analyze
+    runs-on: windows-latest
+    steps:
+      - name: Set up JDK 17
+        uses: actions/setup-java@c1e323688fd81a25caa38c78aa6df2d33d3e20d9 # v4.8.0
+        with:
+          java-version: 17
+          distribution: 'zulu' # Alternative distribution options are available.
+      - uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4.3.1
+        with:
+          fetch-depth: 0  # Shallow clones should be disabled for a better relevancy of analysis
+      - name: Cache SonarQube Cloud packages
+        uses: actions/cache@0057852bfaa89a56745cba8c7296529d2fc39830 # v4.3.0
+        with:
+          path: ~\sonar\cache
+          key: ${{ runner.os }}-sonar
+          restore-keys: ${{ runner.os }}-sonar
+      - name: Cache SonarQube Cloud scanner
+        id: cache-sonar-scanner
+        uses: actions/cache@0057852bfaa89a56745cba8c7296529d2fc39830 # v4.3.0
+        with:
+          path: ${{ runner.temp }}\scanner
+          key: ${{ runner.os }}-sonar-scanner
+          restore-keys: ${{ runner.os }}-sonar-scanner
+      - name: Install SonarQube Cloud scanner
+        if: steps.cache-sonar-scanner.outputs.cache-hit != 'true'
+        shell: powershell
+        run: |
+          New-Item -Path ${{ runner.temp }}\scanner -ItemType Directory
+          dotnet tool update dotnet-sonarscanner --tool-path ${{ runner.temp }}\scanner
+      - name: Build and analyze
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+        shell: powershell
+        run: |
+          ${{ runner.temp }}\scanner\dotnet-sonarscanner begin /k:"laikha_IoCnew" /o:"laikha" /d:sonar.token="${{ secrets.SONAR_TOKEN }}"
+          dotnet build
+          
+  Git-verify-release:
+    needs: Sonar
+    runs-on: ubuntu-latest   # ← Runner gratuito do GitHub
+    permissions:
+      contents: read
+
+    steps:
+      - name: Ensure GitHub CLI (gh)
+        run: |
+          if ! command -v gh >/dev/null 2>&1; then
+            echo "gh não encontrado no runner. Instale GitHub CLI no self-hosted runner."
+            exit 1
+          fi
+          gh --version
+
+  Open-PR:
+    needs: Git-verify-release
+    runs-on: ubuntu-latest   # ← Runner gratuito do GitHub
+    permissions:
+      contents: read
+      pull-requests: write
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Create PR if missing (develop -> release)
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          set -euo pipefail
+          git fetch --no-tags --prune origin +refs/heads/*:refs/remotes/origin/* || true
+          BRANCH="develop"
+          echo "Verificando branches: head=$BRANCH base=release"
+          if ! git show-ref --verify --quiet refs/remotes/origin/"$BRANCH"; then
+            echo "Head branch origin/$BRANCH não encontrada — abortando"
+            exit 1
+          fi
+          if ! git show-ref --verify --quiet refs/remotes/origin/release; then
+            echo "Base branch origin/release não encontrada — abortando"
+            exit 1
+          fi
+          COMMITS=$(git rev-list --count origin/release..origin/"$BRANCH" || echo 0)
+          if [ "$COMMITS" -eq 0 ]; then
+            echo "Nenhum commit entre release e $BRANCH — pulando criação de PR"
+            exit 0
+          fi
+
+          PR_NUMBER=$(gh pr list --state open --head "$BRANCH" --base "release" --json number --jq '.[0].number' 2>/dev/null || echo "")
+          if [ -n "$PR_NUMBER" ] && [ "$PR_NUMBER" != "null" ]; then
+            echo "PR já existe (#$PR_NUMBER). Nada a fazer."
+            exit 0
+          fi
+
+          gh pr create \
+            --base "main" \
+            --head "$BRANCH" \
+            --title "chore: promote develop -> release" \
+            --body "Promoção automática develop -> release (merge detectado em develop)."
+
+          NEW_PR=$(gh pr list --state open --head "$BRANCH" --base "main" --json number --jq '.[0].number')
+          echo "Criado PR #$NEW_PR"
+
+          gh pr edit "$NEW_PR" --add-label "automated" 2>/dev/null || true
+          gh pr edit "$NEW_PR" --add-label "release" 2>/dev/null || true

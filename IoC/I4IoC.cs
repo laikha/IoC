@@ -4,17 +4,16 @@ using System;
 namespace IoC
 {
     /// <summary>
-    /// A interface to use in classes
+    /// Contrato básico para classes que expõem informações sobre o tipo genérico T.
     /// </summary>
-    /// @author Ricardo Silva
     public interface I4IoC<in T>
     {
         string WhoAmI();
 
-        string WhoAmI(dynamic whoIs);
+        string WhoAmI(T whoIs);
 
         float GetMidGrade();
 
-        void NotInitialized(dynamic whoIs);
+        void NotInitialized(T whoIs);
     }
 }
