@@ -107,7 +107,7 @@ jobs:
             --title "release: promote release (v$VERSION) -> main" \
             --body "Promoção automática release -> main. Versão: v$VERSION"
 
-          NEW_PR=$(gh pr list --state open --head "release" --base "main" --json number --jq '.[0].number')
+          NEW_PR=$(gh pr list --state open --head "$BRANCH" --base "main" --json number --jq '.[0].number')
           echo "Criado PR #$NEW_PR"
           
           # Tentar adicionar labels se existirem
