@@ -53,23 +53,8 @@ jobs:
       - name: Validate tests
         run: dotnet test IoC.sln --configuration Release --verbosity normal
 
-  Git-verify-feature:
-    needs: Tests
-    runs-on: ubuntu-latest   # ← Runner gratuito do GitHub
-    permissions:
-      contents: read
-
-    steps:
-      - name: Ensure GitHub CLI (gh)
-        run: |
-          if ! command -v gh >/dev/null 2>&1; then
-            echo "gh não encontrado no runner. Instale GitHub CLI no self-hosted runner."
-            exit 1
-          fi
-          gh --version
-
   Open-PR:
-    needs: Git-verify-feature
+    needs: Tests
     runs-on: ubuntu-latest   # ← Runner gratuito do GitHub
     permissions:
       contents: read
@@ -80,7 +65,7 @@ jobs:
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
-      - name: Create PR if missing (feature -> develop)
+      - name: Create PR if missing (${{ github.ref_name }} -> develop)
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           BRANCH: ${{ github.ref_name }}
@@ -112,7 +97,7 @@ jobs:
             --base "develop" \
             --head "$BRANCH" \
             --title "feat: auto PR $BRANCH -> develop" \
-            --body "PR auto-criado via GitHub Actions (feature -> develop)."
+            --body "PR auto-criado via GitHub Actions ($BRANCH -> develop)."
 
           NEW_PR=$(gh pr list --state open --head "$BRANCH" --base "develop" --json number --jq '.[0].number')
           echo "Criado PR #$NEW_PR"
