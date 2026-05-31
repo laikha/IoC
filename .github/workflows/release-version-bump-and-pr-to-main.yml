@@ -44,29 +44,28 @@ jobs:
             git push origin release
           fi
 
-  Git-verify-main:
-    needs: bump_and_pr
-    runs-on: ubuntu-latest   # ← Runner gratuito do GitHub
-    permissions:
-      contents: read
-
-    steps:
-      - name: Ensure GitHub CLI (gh)
-        run: |
-          if ! command -v gh &> /dev/null; then
-            echo "gh não encontrado no runner. Instale GitHub CLI no self-hosted runner."
-            exit 1
-          fi
-          gh --version
-
   Open-PR:
-    needs: Git-verify-main
+    needs: bump_and_pr
     runs-on: ubuntu-latest   # ← Runner gratuito do GitHub
     permissions:
       contents: read
       pull-requests: write
 
     steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Find existing PR without git context
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          REPO: ${{ github.repository }}
+        run: |
+          PR_NUMBER=$(gh api \
+            repos/$REPO/pulls \
+            --jq '.[] | select(.state=="open" and .head.ref=="release" and .base.ref=="main") | .number' \
+            2>/dev/null | head -n 1 || echo "")
+          echo "PR_NUMBER=$PR_NUMBER" >> $GITHUB_ENV
+
       - name: Create PR if missing (release -> main)
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
