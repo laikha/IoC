@@ -67,20 +67,6 @@ jobs:
       pull-requests: write
 
     steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-
-      - name: Find existing PR without git context
-        env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          REPO: ${{ github.repository }}
-        run: |
-          PR_NUMBER=$(gh api \
-            repos/$REPO/pulls \
-            --jq '.[] | select(.state=="open" and .head.ref=="release" and .base.ref=="main") | .number' \
-            2>/dev/null | head -n 1 || echo "")
-          echo "PR_NUMBER=$PR_NUMBER" >> $GITHUB_ENV
-
       - name: Create PR if missing (release -> main)
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
